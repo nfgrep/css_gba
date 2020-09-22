@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet", href="style.css">
+    </head>
+    <div class="gba_container">
+        <h1 id="gba_image">??</h1>
+    </div>
+</html>
+
+<script>
+    
+    hh = document.getElementsByTagName("h1")[0];
+    
+    function updateDisp(e){
+        hh.innerText = e.pageX;
+    }
+
+    hh.addEventListener("mousemove", updateDisp, false);
+
+</script>
