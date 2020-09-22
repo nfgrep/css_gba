@@ -3,19 +3,26 @@
     <head>
         <link rel="stylesheet", href="style.css">
     </head>
-    <div class="gba_container">
+    <div id="main_container">
         <h1 id="gba_image">??</h1>
     </div>
 </html>
 
 <script>
     
-    hh = document.getElementsByTagName("h1")[0];
+    gba = document.getElementById("gba_image");
+    container = document.getElementById("main_container");
     
-    function updateDisp(e){
-        hh.innerText = e.pageX;
-    }
+    var gba_x = gba.offsetLeft, gba_y = gba.offsetTop;
+    var mouse = {x : 0, y : 0};
 
-    hh.addEventListener("mousemove", updateDisp, false);
+
+    container.addEventListener("mousemove", (e) => {
+        mouse.x = e.pageX;
+        mouse.y = e.pageY;
+        console.log(mouse.x + " : " + mouse.y)
+    }, false);
+
+    gba.innerText = gba_x + " : " + gba_y;
 
 </script>

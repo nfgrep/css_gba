@@ -3,7 +3,7 @@ html, body {
     height: 100%;
 }
 
-.gba_container {
+#main_container {
     display: flex;
     height: 100%;
     justify-content: center;
