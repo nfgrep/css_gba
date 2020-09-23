@@ -36,7 +36,7 @@
             //adjust rotation as inserting
             rot = 0;
             cart.style.transform = "rotate("+rot+"rad)"
-            if(e.pageY < 100){
+            if(cart.offsetTop + cart.clientHeight < gba.offsetTop){
                 cart_inserted = false;
             }
         }else{
@@ -49,7 +49,7 @@
             adjacent = (gba.offsetTop + gba.clientHeight/5) - e.pageY;
             rot = -Math.atan(opposite/adjacent)
             cart.style.transform = "rotate("+rot+"rad)"
-            if(rot > -0.2 && rot < 0.2 && e.pageY == 100){
+            if(rot > -0.2 && rot < 0.2 && (cart.offsetTop + cart.clientHeight) == gba.offsetTop){
                 cart_inserted = true;
                 rot_on_insert = rot;
                 x_on_insert = (e.pageX - cart.clientWidth/2);
