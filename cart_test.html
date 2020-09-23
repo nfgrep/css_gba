@@ -4,25 +4,39 @@
         <link rel="stylesheet", href="style.css">
     </head>
     <div id="main_container">
-        <h1 id="gba_image">??</h1>
+        <img id="gba_image" src="gba.png"/>
+        <img id="cart_image" src="cart.png"/>
     </div>
+
 </html>
 
 <script>
     
+    //primitives
+    let rot = 0
+    function dist(x1,x2,y1,y2){
+        return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
+    }
+    
+    cart = document.getElementById("cart_image");
     gba = document.getElementById("gba_image");
     container = document.getElementById("main_container");
     
-    var gba_x = gba.offsetLeft, gba_y = gba.offsetTop;
-    var mouse = {x : 0, y : 0};
-
-
     container.addEventListener("mousemove", (e) => {
-        mouse.x = e.pageX;
-        mouse.y = e.pageY;
-        console.log(mouse.x + " : " + mouse.y)
+
+        //trying to make the cart follow the cursor
+        cart.style.left = ""+(e.pageX - cart.clientWidth/2)+"px";
+        cart.style.top = ""+e.pageY+"px";
+
+        //calcing and applying rotation of cart
+        opposite = (gba.offsetLeft + gba.clientWidth/2) - e.pageX;
+        adjacent = (gba.offsetTop + gba.clientHeight/2) - e.pageY;
+        rot = Math.atan(opposite/adjacent)
+        cart.style.transform = "rotate("+-rot+"rad)"
+    
     }, false);
 
-    gba.innerText = gba_x + " : " + gba_y;
+    
+
 
 </script>

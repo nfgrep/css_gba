@@ -11,5 +11,12 @@ html, body {
 }
 
 #gba_image {
-    border: solid;
+    width: 27%;
+    height: auto;
+}
+
+#cart_image {
+    width: 10%;
+    height auto;
+    position: absolute;
 }
