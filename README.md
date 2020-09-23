@@ -1,2 +1,2 @@
 # css_gba
-![image](screenshot.png)
+![image](img/screenshot.png)
