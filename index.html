@@ -14,6 +14,8 @@
     
     //primitives
     let rot = 0
+    let rot_on_insert = 0;
+    let x_on_insert = 0;
     function dist(x1,x2,y1,y2){
         return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
     }
@@ -22,18 +24,37 @@
     gba = document.getElementById("gba_image");
     container = document.getElementById("main_container");
     
+    let cart_inserted = false;
+
     container.addEventListener("mousemove", (e) => {
 
-        //trying to make the cart follow the cursor
-        cart.style.left = ""+(e.pageX - cart.clientWidth/2)+"px";
-        cart.style.top = ""+e.pageY+"px";
-
-        //calcing and applying rotation of cart
-        opposite = (gba.offsetLeft + gba.clientWidth/2) - e.pageX;
-        adjacent = (gba.offsetTop + gba.clientHeight/2) - e.pageY;
-        rot = Math.atan(opposite/adjacent)
-        cart.style.transform = "rotate("+-rot+"rad)"
+        if(cart_inserted){
+            console.log(cart.style.left);
+            cart.style.top = ""+e.pageY+"px";
+            //TODO:adjust x pos as inserting??
+            //cart.style.left = ((x_on_insert - (container.clientWidth/2))/66)*e.pageY+"px";
+            //adjust rotation as inserting
+            rot = rot_on_insert/(e.pageY-100)
+            cart.style.transform = "rotate("+rot+"rad)"
+            if(e.pageY < 100){
+                cart_inserted = false;
+            }
+        }else{
+            //trying to make the cart follow the cursor
+            cart.style.left = ""+(e.pageX - cart.clientWidth/2)+"px";
+            cart.style.top = ""+e.pageY+"px";
     
+            //calcing and applying rotation of cart
+            opposite = (gba.offsetLeft + gba.clientWidth/2) - e.pageX;
+            adjacent = (gba.offsetTop + gba.clientHeight/5) - e.pageY;
+            rot = -Math.atan(opposite/adjacent)
+            cart.style.transform = "rotate("+rot+"rad)"
+            if(rot > -0.2 && rot < 0.2 && e.pageY == 100){
+                cart_inserted = true;
+                rot_on_insert = rot;
+                x_on_insert = (e.pageX - cart.clientWidth/2);
+            }
+        }
     }, false);
 
     
