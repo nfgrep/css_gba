@@ -20,8 +20,30 @@
         return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
     }
     
-    cart = document.getElementById("cart_image");
-    gba = document.getElementById("gba_image");
+    cart = {
+        e : document.getElementById("cart_image"),
+        get top() {return this.e.offsetTop},
+        get bot() {return this.e.offsetTop + this.e.clientHeight},
+        _rot : 0,
+        set rot(val) {
+            this.e.style.transform = "rotate("+val+"rad)";
+            this._rot = val;
+        },
+        get rot() {return this._rot},
+        get x() {return (this.e.offsetLeft + this.e.clientWidth/2)},    //pre-calc division?
+        get y() {return (this.e.offsetTop + this.e.clientHeight/2)},
+        set x(val) {this.e.style.left = (val - this.e.clientWidth/2)+"px"},
+        set y(val) {this.e.style.top = (val - this.e.clientHeight/2)+"px"}
+    }
+    
+    gba = {
+        e : document.getElementById("gba_image"),
+        get top() {return this.e.offsetTop},
+        get x() {return (this.e.offsetLeft + this.e.clientWidth/2)},    //pre-calc division?
+        get y() {return (this.e.offsetTop + this.e.clientHeight/2)},
+        set x(val) {this.e.style.left = (val - this.e.clientWidth/2)+"px"},
+        set y(val) {this.e.style.top = (val - this.e.clientHeight/2)+"px"}
+    }
     container = document.getElementById("main_container");
     
     let cart_inserted = false;
@@ -29,30 +51,27 @@
     container.addEventListener("mousemove", (e) => {
 
         if(cart_inserted){
-            console.log(cart.style.left);
-            cart.style.top = ""+e.pageY+"px";
+            cart.y = e.pageY; 
             //TODO:adjust x pos as inserting??
-            //cart.style.left = ((x_on_insert - (container.clientWidth/2))/66)*e.pageY+"px";
+            cart.x = gba.x;
             //adjust rotation as inserting
-            rot = rot_on_insert/(e.pageY-100)
-            cart.style.transform = "rotate("+rot+"rad)"
-            if(e.pageY < 100){
+            cart.rot = 0;
+            if(cart.y < 100){
                 cart_inserted = false;
             }
         }else{
             //trying to make the cart follow the cursor
-            cart.style.left = ""+(e.pageX - cart.clientWidth/2)+"px";
-            cart.style.top = ""+e.pageY+"px";
-    
+            cart.x = e.pageX;
+            cart.y = e.pageY;
+
             //calcing and applying rotation of cart
-            opposite = (gba.offsetLeft + gba.clientWidth/2) - e.pageX;
-            adjacent = (gba.offsetTop + gba.clientHeight/5) - e.pageY;
-            rot = -Math.atan(opposite/adjacent)
-            cart.style.transform = "rotate("+rot+"rad)"
-            if(rot > -0.2 && rot < 0.2 && e.pageY == 100){
+            opposite = gba.x  - e.pageX;
+            adjacent = gba.y - e.pageY;
+            cart.rot = -Math.atan(opposite/adjacent)
+            if(cart.rot > -0.2 && cart.rot < 0.2 && cart.bot == gba.top){
                 cart_inserted = true;
-                rot_on_insert = rot;
-                x_on_insert = (e.pageX - cart.clientWidth/2);
+                rot_on_insert = cart.rot;
+                x_on_insert = cart.x;
             }
         }
     }, false);
