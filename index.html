@@ -32,9 +32,9 @@
             console.log(cart.style.left);
             cart.style.top = ""+e.pageY+"px";
             //TODO:adjust x pos as inserting??
-            //cart.style.left = ((x_on_insert - (container.clientWidth/2))/66)*e.pageY+"px";
+            cart.style.left = ((gba.offsetLeft + gba.clientWidth/2) - cart.clientWidth/2)+"px";
             //adjust rotation as inserting
-            rot = rot_on_insert/(e.pageY-100)
+            rot = 0;
             cart.style.transform = "rotate("+rot+"rad)"
             if(e.pageY < 100){
                 cart_inserted = false;
