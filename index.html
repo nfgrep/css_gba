@@ -3,66 +3,10 @@
     <head>
         <link rel="stylesheet", href="style.css">
     </head>
-    <div id="main_container">
-        <img id="gba_image" src="img/gba.png"/>
-        <img id="cart_image" src="img/cart.png"/>
-    </div>
-
+    <canvas>
+    </canvas>
 </html>
 
 <script>
     
-    //primitives
-    let rot = 0
-    let rot_on_insert = 0;
-    let x_on_insert = 0;
-    function dist(x1,x2,y1,y2){
-        return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
-    }
-    
-    cart = document.getElementById("cart_image");
-    gba = document.getElementById("gba_image");
-    container = document.getElementById("main_container");
-    
-    let cart_inserted = false;
-
-    container.addEventListener("mousemove", (e) => {
-
-        if(cart_inserted){
-            console.log(e.pageY-gba_top_on_insert);
-            //TODO:adjust x pos as inserting??
-            cart.style.left = ((gba.offsetLeft + gba.clientWidth/2) - cart.clientWidth/2)+"px";
-            //adjust rotation as inserting
-            rot = 0;
-            cart.style.transform = "rotate("+rot+"rad)"
-            //move gba slightly bc friction
-            gba.style.top = gba_top_on_insert+((e.pageY)-gba_top_on_insert+cart.clientHeight)/6 + "px";
-            //move cart less
-            cart.style.top = cart_top_on_insert+(e.pageY-cart_top_on_insert)/2+"px";
-            //check if pulled out
-            if(cart.offsetTop + cart.clientHeight < gba.offsetTop){
-                cart_inserted = false;
-            }
-        }else{
-            //trying to make the cart follow the cursor
-            cart.style.left = ""+(e.pageX - cart.clientWidth/2)+"px";
-            cart.style.top = ""+e.pageY+"px";
-    
-            //calcing and applying rotation of cart
-            opposite = (gba.offsetLeft + gba.clientWidth/2) - e.pageX;
-            adjacent = (gba.offsetTop + gba.clientHeight/5) - e.pageY;
-            rot = -Math.atan(opposite/adjacent)
-            cart.style.transform = "rotate("+rot+"rad)"
-            if(rot > -0.2 && rot < 0.2 && (cart.offsetTop + cart.clientHeight) == gba.offsetTop){
-                cart_inserted = true;
-                rot_on_insert = rot;
-                gba_top_on_insert = gba.offsetTop;
-                cart_top_on_insert = cart.offsetTop;
-            }
-        }
-    }, false);
-
-    
-
-
 </script>
