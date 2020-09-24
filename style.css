@@ -13,6 +13,7 @@ html, body {
 #gba_image {
     width: 27%;
     height: auto;
+    position: absolute
 }
 
 #cart_image {
