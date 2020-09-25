@@ -8,5 +8,15 @@
 </html>
 
 <script>
-    
+document.addEventListener("DOMContentLoaded",()=>{
+
+    let canvas = document.getElementsByTagName("canvas")[0];
+    let ctx = canvas.getContext('2d');
+    let img = new Image();
+    img.src = "img/cart.png";
+    img.addEventListener("load", e=> {
+        ctx.drawImage(img,10,10);
+    });
+
+})//DOMContentLoaded
 </script>
